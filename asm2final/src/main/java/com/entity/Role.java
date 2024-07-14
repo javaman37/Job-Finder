@@ -12,6 +12,8 @@ public class Role {
 
     @Column(name = "role_name")
     private String roleName;
+    
+   // Getters and Setters
 
 	public int getId() {
 		return id;
@@ -29,9 +31,8 @@ public class Role {
 		this.roleName = roleName;
 	}
 
-	protected Role() {
-		// TODO Auto-generated constructor stub
+	public Role() {
 	}
-    // Getters and Setters
+    
     
 }

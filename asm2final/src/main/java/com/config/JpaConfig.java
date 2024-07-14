@@ -27,7 +27,7 @@ public class JpaConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/spring_workcv?useSSL=false");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/spring_workcv?allowPublicKeyRetrieval=true&useSSL=false");
         dataSource.setUsername("springstudent");
         dataSource.setPassword("springstudent");
         return dataSource;
@@ -57,7 +57,7 @@ public class JpaConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");

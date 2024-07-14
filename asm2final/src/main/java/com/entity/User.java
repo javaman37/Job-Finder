@@ -10,13 +10,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "address")
     private String address;
+    
+    @Column(name = "description")
     private String description;
+    
+    @Column(name = "email")
     private String email;
+    
+    @Column(name = "fullName")
     private String fullName;
+    
+    @Column(name = "image")
     private String image;
+    
+    @Column(name = "password")
     private String password;
+    
+    @Column(name = "phoneNumber")
     private String phoneNumber;
+    
+    @Column(name = "status")
     private int status;
 
     @ManyToOne
@@ -118,6 +133,17 @@ public class User {
 	public void setCv(CV cv) {
 		this.cv = cv;
 	}
+	
+	// check isEnabled()
+    public boolean isEnabled() {
+        // Logic để xác định nếu người dùng được kích hoạt
+        return status == 1; // Ví dụ: nếu status bằng 1 thì người dùng được kích hoạt
+    }
+
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", fullName=" + fullName + ", password=" + password + ", role=" + role + "]";
+//	}
 
     
     

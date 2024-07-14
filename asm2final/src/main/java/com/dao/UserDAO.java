@@ -8,4 +8,7 @@ import com.entity.User;
 @Repository
 public interface UserDAO extends JpaRepository<User, Integer> {
 
+	User findByFullName(String username);
+	
+
 }
