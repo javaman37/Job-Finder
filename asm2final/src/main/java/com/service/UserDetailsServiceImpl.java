@@ -20,10 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		//System.out.println(user.toString());
-		System.out.println(username);
-		User user = userDAO.findByFullName(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userDAO.findByEmail(email);
 		
 		
         if (user == null) {
@@ -31,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return new org.springframework.security.core.userdetails.User(
         
-            user.getFullName(),
+            user.getEmail(),
             user.getPassword(),
             user.isEnabled(),
             true,

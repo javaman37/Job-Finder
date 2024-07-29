@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,11 +12,16 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name="name")
     private String name;
+    
+    @Column(name="number_choose")
     private int numberChoose;
     
+    @OneToMany(mappedBy = "category")
+    private Set<Recruitment> recruitments;
+    
     protected Category() {
-		// TODO Auto-generated constructor stub
 	}
     
     // Getters and Setters

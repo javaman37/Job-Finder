@@ -12,7 +12,7 @@ public class SaveJob {
 
     @ManyToOne
     @JoinColumn(name = "recruitment_id")
-    private Recruiment recruitment;
+    private Recruitment recruitment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -32,11 +32,11 @@ public class SaveJob {
 		this.id = id;
 	}
 
-	public Recruiment getRecruitment() {
+	public Recruitment getRecruitment() {
 		return recruitment;
 	}
 
-	public void setRecruitment(Recruiment recruitment) {
+	public void setRecruitment(Recruitment recruitment) {
 		this.recruitment = recruitment;
 	}
 

@@ -35,18 +35,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable().authorizeRequests()
+	        .antMatchers("/auth/**","/assets/**","/assets/public/**")
+	        .permitAll()
             .antMatchers("/").hasAnyAuthority("USER", "HR")
             .antMatchers("/hr/**").hasAuthority("HR")
             .antMatchers("/user/**").hasAuthority("USER")
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            .loginProcessingUrl("/")
-            .loginPage("/loginAction")
-            .permitAll()
+            .loginPage("/auth/login") // URL của trang đăng nhập
+            .defaultSuccessUrl("/", true)// URL mặc định sau khi đăng nhập thành công
+            .usernameParameter("email")
+            .passwordParameter("password")
+            .loginProcessingUrl("/j_spring_security_login")
             .and()
             .logout()
+            .logoutUrl("/auth/logout") // URL xử lý logout
+            .logoutSuccessUrl("/")
             .permitAll();
     }
 }

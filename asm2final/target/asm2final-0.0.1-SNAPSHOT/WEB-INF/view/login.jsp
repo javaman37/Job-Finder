@@ -198,7 +198,7 @@
       </div>
       <div class="col-lg-6">
         <h2 class="mb-4">Đăng nhập</h2>
-        <form action="/auth/login" method="post" class="p-4 border rounded">
+        <form action="${pageContext.request.contextPath}/j_spring_security_login" method="post" class="p-4 border rounded">
 
           <div class="row form-group">
             <div class="col-md-12 mb-3 mb-md-0">

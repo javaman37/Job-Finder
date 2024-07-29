@@ -9,7 +9,8 @@ public class CV {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    
+    @Column(name="file_name")
     private String fileName;
 
     @ManyToOne

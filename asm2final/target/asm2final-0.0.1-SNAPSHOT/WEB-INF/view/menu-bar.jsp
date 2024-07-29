@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -16,24 +18,42 @@
 	rel="stylesheet">
 
 <!-- CSS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/magnific-popup.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/aos.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ionicons.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jquery.timepicker.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/css/bootstrap-reboot.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/css/mixins/_text-hide.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/flaticon.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/icomoon.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap/bootstrap-grid.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap/bootstrap-reboot.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/animate.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/magnific-popup.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/aos.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/ionicons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/jquery.timepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/css/bootstrap-reboot.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/css/mixins/_text-hide.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/flaticon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap/bootstrap-grid.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap/bootstrap-reboot.css">
 
 <!-- JS -->
 <script src="/assets/js/jquery.min.js"></script>
@@ -74,19 +94,22 @@
 						<li><a href="/">Hồ Sơ</a></li>
 						<li><a href="/save-job/get-list">Công việc đã lưu</a></li>
 						<li><a href="/user/list-post">Danh sách bài đăng</a></li>
-						<li><a href="/user/get-list-apply">Công việc đã ứng
-								tuyển</a></li>
-						<li><a href="/user/get-list-company">Công ty đã theo
-								dõi</a></li>
-						<li><a href="/auth/logout">Đăng xuất</a></li>
+						<li><a href="/user/get-list-apply">Công việc đã ứng tuyển</a></li>
+						<li><a href="/user/get-list-company">Công ty đã theo dõi</a></li>
+						<sec:authorize access="isAuthenticated()">
+							<li><a href="/auth/logout">Đăng xuất</a></li>
+						</sec:authorize>
 					</ul>
 					<li></li>
 					<li class="nav-item cta mr-md-1"><a href="/recruitment/post"
 						class="nav-link">Đăng tuyển</a></li>
-						<form:form>
-						</form:form>
-					<li class="nav-item cta cta-colored"><a href="${pageContext.request.contextPath}/auth/login"
-						class="nav-link">Đăng nhập</a></li>
+					<form:form>
+					</form:form>
+					<sec:authorize access="!isAuthenticated()">
+						<li class="nav-item cta cta-colored"><a
+							href="${pageContext.request.contextPath}/auth/login"
+							class="nav-link">Đăng nhập</a></li>
+					</sec:authorize>
 				</ul>
 			</div>
 		</div>

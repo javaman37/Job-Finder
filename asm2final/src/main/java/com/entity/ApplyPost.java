@@ -10,14 +10,21 @@ public class ApplyPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "created_at")
     private String createdAt;
+    
+    @Column(name = "name_cv")
     private String nameCv;
+    
+    @Column(name = "status")
     private int status;
+    
+    @Column(name = "text")
     private String text;
 
     @ManyToOne
     @JoinColumn(name = "recruitment_id")
-    private Recruiment recruitment;
+    private Recruitment recruitment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -69,11 +76,11 @@ public class ApplyPost {
 		this.text = text;
 	}
 
-	public Recruiment getRecruitment() {
+	public Recruitment getRecruitment() {
 		return recruitment;
 	}
 
-	public void setRecruitment(Recruiment recruitment) {
+	public void setRecruitment(Recruitment recruitment) {
 		this.recruitment = recruitment;
 	}
 
