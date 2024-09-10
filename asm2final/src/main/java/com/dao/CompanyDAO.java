@@ -12,11 +12,13 @@ import java.util.List;
 @Repository
 public interface CompanyDAO extends CrudRepository<Company, Long> {
 
-    @Query("SELECT c.id AS id, c.nameCompany AS nameCompany, COUNT(a.id) AS totalApplications " +
+    @Query("SELECT c.id AS id, c.nameCompany AS nameCompany,c.logo AS logo, COUNT(a.id) AS totalApplications " +
            "FROM Company c " +
            "JOIN c.recruitments r " +
            "JOIN r.applyPosts a " +
-           "GROUP BY c.id, c.nameCompany " +
+           "GROUP BY c.id, c.nameCompany, c.logo " +
            "ORDER BY COUNT(a.id) DESC")
     List<FeaturedCompany> findTopCompaniesByTotalApplications(Pageable pageable);
+
+	Company findById(int id);
 }

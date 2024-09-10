@@ -141,8 +141,8 @@
 											aria-controls="v-pills-1" aria-selected="true">Tìm công
 											việc</a> <a class="nav-link" id="v-pills-2-tab"
 											data-toggle="pill" href="#v-pills-2" role="tab"
-											aria-controls="v-pills-2" aria-selected="false">Tìm ứng
-											cử viên</a> <a class="nav-link" id="v-pills-3-tab"
+											aria-controls="v-pills-2" aria-selected="false">Tìm theo
+											công ty</a> <a class="nav-link" id="v-pills-3-tab"
 											data-toggle="pill" href="#v-pills-3" role="tab"
 											aria-controls="v-pills-3" aria-selected="false">Tìm theo
 											địa điểm</a>
@@ -155,7 +155,7 @@
 
 										<div class="tab-pane fade show active" id="v-pills-1"
 											role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-											<form action="/recruitment/search" method="post"
+											<form th:action="@{/recruitment/search}" 
 												class="search-job">
 												<div class="row no-gutters">
 
@@ -184,7 +184,7 @@
 
 										<div class="tab-pane fade" id="v-pills-2" role="tabpanel"
 											aria-labelledby="v-pills-performance-tab">
-											<form action="/user/search" method="post" class="search-job">
+											<form th:action="@{/recruitment/searchcompany}" class="search-job">
 												<div class="row no-gutters">
 
 													<div class="col-md-10 mr-md-2">
@@ -194,7 +194,7 @@
 																	<span class="icon-map-marker"></span>
 																</div>
 																<input type="text" name="keySearch" class="form-control"
-																	placeholder="Tìm kiếm ứng cử viên">
+																	placeholder="Tìm theo công ty">
 															</div>
 														</div>
 													</div>
@@ -211,7 +211,7 @@
 										</div>
 										<div class="tab-pane fade" id="v-pills-3" role="tabpanel"
 											aria-labelledby="v-pills-performance-tab">
-											<form action="/recruitment/searchaddress" method="post"
+											<form th:action="@{/recruitment/searchaddress}" 
 												class="search-job">
 												<div class="row no-gutters">
 
@@ -411,7 +411,7 @@
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<form method="post" action="/user/apply-job">
+										<form method="post" th:action="@{/user/apply-job}">
 											<div class="modal-body">
 												<div class="row">
 													<div class="col-12">
@@ -482,7 +482,7 @@
 						<div class="sidebar-box">
 							<div class="">
 								<a th:href="@{'/user/detail-company/' + ${company.id}}"
-									class="company-wrap"><img th:src="${company.logo}"
+									class="company-wrap"><img th:src="@{${company.logo}}"
 									class="img-fluid" alt="Colorlib Free Template"></a>
 								<div class="text p-3">
 									<h3>
@@ -511,7 +511,7 @@
 			formData.append('idRe', idRe);
 			$.ajax({
 				type : 'POST',
-				url : '/save-job/save/',
+				url : '/asm2final/savejob/',
 				contentType : false,
 				processData : false,
 				data : formData,
@@ -547,6 +547,7 @@
 					}
 				},
 				error : function(err) {
+					console.log(err.responseText)
 					alert(err);
 				}
 			})
@@ -584,6 +585,7 @@
 			var formData = new FormData();
 			formData.append('file', files[0]);
 			formData.append('idRe', idRe);
+			console.log(idRe);
 			formData.append('text', textvalue);
 			if (files[0] == null) {
 				swal({
@@ -597,7 +599,7 @@
 			} else {
 				$.ajax({
 					type : 'POST',
-					url : '/user/apply-job/',
+					url : '/asm2final/user/apply-job/',
 					contentType : false,
 					processData : false,
 					data : formData,
@@ -636,6 +638,7 @@
 						}
 					},
 					error : function(err) {
+						console.log(err.responseText)
 						alert(err);
 					}
 				})
@@ -654,7 +657,7 @@
 			formData.append('text', textvalue);
 			$.ajax({
 				type : 'POST',
-				url : '/user/apply-job1/',
+				url : '/asm2final/user/apply-job1/',
 				contentType : false,
 				processData : false,
 				data : formData,
@@ -679,6 +682,18 @@
 						})
 						$(nameModal).modal('hide');
 						$('#fileUpload').val("");
+						
+					} else if (data == "cv_required") {
+						swal({
+						title : 'Không có CV nào trong hồ sơ người dùng!',
+						/* text: 'Redirecting...', */
+						icon : 'error',
+						timer : 3000,
+						buttons : true,
+						type : 'error'
+						})
+						$(nameModal).modal('hide');
+						$('#fileUpload').val("");
 					} else {
 						swal({
 							title : 'Bạn đã ứng tuyển công việc này!',
@@ -693,20 +708,12 @@
 					}
 				},
 				error : function(err) {
+					console.log(err.responseText)
 					alert(err);
 				}
 			})
 
 		}
 	</script>
-
-<!-- 
-	<footer th:replace="public/fragments :: footer"
-		class="ftco-footer ftco-bg-dark ftco-section"> </footer> -->
-
-
-	<!-- loader -->
-	<!--<div th:replace="public/fragments :: loading" id="ftco-loader" class="show fullscreen"></div>-->
-
 </body>
 </html>

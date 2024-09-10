@@ -1,7 +1,5 @@
 package com.dao;
 
-import com.entity.Company;
-
 public interface FeaturedJob {
     Long getId();
     String getTitle();

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.CategoryDAO;
 import com.dao.FeaturedCategory;
+import com.entity.Category;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -19,4 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
     public List<FeaturedCategory> getTop4Categories() {
         return categoryDAO.findTop4Categories(PageRequest.of(0, 4));
     }
+
+	@Override
+	public List<Category> getAllCategories() {
+		return (List<Category>) categoryDAO.findAll();
+	}
+
+	@Override
+	public Category getCategoryById(Long categoryId) {
+		return categoryDAO.findCategoryById(categoryId);
+	}
 }

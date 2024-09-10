@@ -1,6 +1,7 @@
 package com.config;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,16 +10,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.service.UserDetailsServiceImpl;
+import com.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	@Autowired
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
+	
 	@Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl(null);
+        return new CustomUserDetailsService();
     }
 
     @Bean
@@ -31,6 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService())
             .passwordEncoder(passwordEncoder());
     }
+    
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomLoginSuccessHandler();
+    }
 
 
     @Override
@@ -40,12 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        .permitAll()
             .antMatchers("/").hasAnyAuthority("USER", "HR")
             .antMatchers("/hr/**").hasAuthority("HR")
-            .antMatchers("/user/**").hasAuthority("USER")
+            .antMatchers("/user/**").hasAnyAuthority("USER", "HR")
             .anyRequest().authenticated()
             .and()
             .formLogin()
             .loginPage("/auth/login") // URL của trang đăng nhập
-            .defaultSuccessUrl("/", true)// URL mặc định sau khi đăng nhập thành công
+            .successHandler(customLoginSuccessHandler)// URL mặc định sau khi đăng nhập thành công
             .usernameParameter("email")
             .passwordParameter("password")
             .loginProcessingUrl("/j_spring_security_login")

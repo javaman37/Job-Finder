@@ -26,11 +26,11 @@ public class ApplyPost {
     @JoinColumn(name = "recruitment_id")
     private Recruitment recruitment;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     
-    protected ApplyPost() {
+    public ApplyPost() {
 		// TODO Auto-generated constructor stub
 	}
     

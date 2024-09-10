@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -34,6 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
 	      registry.addResourceHandler("/assets/js/**").addResourceLocations("/assets/js/");
 	      registry.addResourceHandler("/assets/fonts/**").addResourceLocations("/assets/fonts/");
 	      registry.addResourceHandler("/assets/images/**").addResourceLocations("/assets/images/");
+	      registry.addResourceHandler("/assets/file-upload/**").addResourceLocations("/assets/file-upload/");
 	      registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
 	  }
 
@@ -81,6 +83,17 @@ public class WebConfig implements WebMvcConfigurer {
 	    @Bean
 	    public BCryptPasswordEncoder passwordEncoder() {
 	        return new BCryptPasswordEncoder();
+	    }
+	    
+
+	    @Bean
+	    public CommonsMultipartResolver multipartResolver() {
+	        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+	        resolver.setDefaultEncoding("utf-8");
+	        resolver.setMaxUploadSize(50000000);
+	        resolver.setMaxUploadSizePerFile(5000000);
+	        resolver.setMaxInMemorySize(5000000);
+	        return resolver;
 	    }
 
 }

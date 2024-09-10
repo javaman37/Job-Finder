@@ -8,43 +8,43 @@ import javax.persistence.*;
 @Table(name = "company")
 public class Company {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-     
-    @Column(name="address")
-    private String address;
-    
-    @Column(name="description")
-    private String description;
-    
-    @Column(name="email")
-    private String email;
-    
-    @Column(name="logo")
-    private String logo;
-    
-    @Column(name="name_company")
-    private String nameCompany;
-    
-    @Column(name="phone_number")
-    private String phoneNumber;
-    
-    @Column(name="status")
-    private int status;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Recruitment> recruitments;
-    
-    public Company() {
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "logo")
+	private String logo;
+
+	@Column(name = "name_company")
+	private String nameCompany;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	@Column(name = "status")
+	private int status;
+
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+	private List<Recruitment> recruitments;
+
+	public Company() {
 		// TODO Auto-generated constructor stub
 	}
-    
-    // Getters and Setters
+
+	// Getters and Setters
 
 	public int getId() {
 		return id;
@@ -118,7 +118,12 @@ public class Company {
 		this.user = user;
 	}
 
-   
-    
-    
+	public List<Recruitment> getRecruitments() {
+		return recruitments;
+	}
+
+	public void setRecruitments(List<Recruitment> recruitments) {
+		this.recruitments = recruitments;
+	}
+
 }

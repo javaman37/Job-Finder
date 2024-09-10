@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -75,31 +76,35 @@
 			</div>
 		</div>
 	</div>
-	<div th:if="${msg_register_success}" class="toast" data-delay="2500"
+	<div th:if="${param.register_success}" class="toast" data-delay="2500"
 		style="position: fixed; top: 100PX; right: 10PX; z-index: 2000; width: 300px">
 		<script>
-			swal({
-				title : 'Đăng ký thành công!',
-				/* text: 'Redirecting...', */
-				icon : 'success',
-				timer : 3000,
-				buttons : true,
-				type : 'success'
-			})
+		  $(document).ready(function() {
+              swal({
+                  title: 'Đăng ký thành công!',
+                  text: 'Vui lòng đăng nhập.',
+                  icon: 'success',
+                  timer: 3000,
+                  buttons: true,
+                  type: 'success'
+              });
+          });
 		</script>
 	</div>
 
-	<div th:if="${msg_register_error}" class="toast" data-delay="2500"
+	<div th:if="${param.register_error}" class="toast" data-delay="2500"
 		style="position: fixed; top: 100PX; right: 10PX; z-index: 2000; width: 300px">
 		<script>
-			swal({
-				title : 'Đăng ký thất bại!',
-				/* text: 'Redirecting...', */
-				icon : 'error',
-				timer : 3000,
-				buttons : true,
-				type : 'error'
-			})
+		$(document).ready(function() {
+            swal({
+                title: 'Đăng ký thất bại!',
+                text: 'Vui lòng thử lại.',
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'error'
+            });
+        });
 		</script>
 	</div>
 	<!-- HOME -->
@@ -123,7 +128,7 @@
 			<div class="row">
 				<div class="col-lg-6 mb-5">
 					<h2 class="mb-4">Đăng kí</h2>
-					<form action="/auth/register" method="post"
+					<form th:action="@{/auth/register}" method="post"
 						class="p-4 border rounded">
 
 						<div class="row form-group">
@@ -159,7 +164,7 @@
 						<div class="row form-group">
 							<div class="col-md-12 mb-3 mb-md-0">
 								<label class="text-black" for="fname">Vai trò</label> <select
-									class="form-control" name="role_id"
+									class="form-control" name="roleId"
 									aria-label="Default select example" required>
 									<option selected>Chọn vai trò</option>
 									<option value="1">Ứng cử viên</option>

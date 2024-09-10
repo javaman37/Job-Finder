@@ -18,7 +18,7 @@ public class FollowCompany {
     @JoinColumn(name = "user_id")
     private User user;
     
-    protected FollowCompany() {
+    public FollowCompany() {
 		// TODO Auto-generated constructor stub
 	}
 

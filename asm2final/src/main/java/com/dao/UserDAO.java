@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.entity.User;
 
 @Repository
-public interface UserDAO extends JpaRepository<User, Integer> {
+public interface UserDAO extends JpaRepository<User, Long> {
 
-	User findByEmail(String email);
+	User findUserByEmail(String email);
+	
 	
 
 }

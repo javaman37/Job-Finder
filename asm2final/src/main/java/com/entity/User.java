@@ -8,7 +8,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "address")
     private String address;
@@ -38,19 +38,35 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "cv_id")
-    private CV cv;
+    private Cv cv;
     
-   public User() {}
+    public ApplyPost getApplyPost() {
+		return applyPost;
+	}
+
+	public void setApplyPost(ApplyPost applyPost) {
+		this.applyPost = applyPost;
+	}
+
+	@OneToOne(mappedBy = "user")
+    private Company company;
+    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ApplyPost applyPost;
+    
+  
+
+public User() {}
     
  // Getters and Setters
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -126,11 +142,11 @@ public class User {
 		this.role = role;
 	}
 
-	public CV getCv() {
+	public Cv getCv() {
 		return cv;
 	}
 
-	public void setCv(CV cv) {
+	public void setCv(Cv cv) {
 		this.cv = cv;
 	}
 	
@@ -140,11 +156,13 @@ public class User {
         return status == 1; // Ví dụ: nếu status bằng 1 thì người dùng được kích hoạt
     }
 
-//	@Override
-//	public String toString() {
-//		return "User [id=" + id + ", fullName=" + fullName + ", password=" + password + ", role=" + role + "]";
-//	}
+    public Company getCompany() {
+		return company;
+	}
 
+	public void setCompany(Company company) {
+		this.company = company;
+	}
     
     
 }

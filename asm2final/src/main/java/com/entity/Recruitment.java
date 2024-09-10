@@ -10,7 +10,7 @@ public class Recruitment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "address")
     private String address;
@@ -27,8 +27,8 @@ public class Recruitment {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "rank")
-    private String rank;
+    @Column(name = "job_rank")
+    private String jobRank;
 
     @Column(name = "salary")
     private String salary;
@@ -45,9 +45,6 @@ public class Recruitment {
     @Column(name = "view")
     private Integer view;
 
-//    @Column(name = "category_id")
-//    private Integer categoryId;
-
     @Column(name = "deadline")
     private String deadline;
     
@@ -55,7 +52,7 @@ public class Recruitment {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -66,15 +63,16 @@ public class Recruitment {
     public Recruitment() {
 		// TODO Auto-generated constructor stub
 	}
+
     // Getters and Setters
 
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -129,13 +127,13 @@ public class Recruitment {
 	}
 
 
-	public String getRank() {
-		return rank;
+	public String getJobRank() {
+		return jobRank;
 	}
 
 
-	public void setRank(String rank) {
-		this.rank = rank;
+	public void setRank(String jobRank) {
+		this.jobRank = jobRank;
 	}
 
 

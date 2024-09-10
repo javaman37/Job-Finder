@@ -8,7 +8,7 @@ public class SaveJob {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "recruitment_id")
@@ -19,16 +19,16 @@ public class SaveJob {
     private User user;
     
     
-    protected SaveJob() {
+    public SaveJob() {
 	}
 
     // Getters and Setters
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

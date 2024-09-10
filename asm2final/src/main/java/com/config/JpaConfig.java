@@ -63,4 +63,5 @@ public class JpaConfig {
         properties.setProperty("hibernate.format_sql", "true");
         return properties;
     }
+    
 }
