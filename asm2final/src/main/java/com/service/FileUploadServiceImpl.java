@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dao.CompanyDAO;
@@ -36,7 +37,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 	
 
 	
-
+// Xử lý hình ảnh
 	@Override
 	public void uploadUserImage(String email, String filePath) {
 		User user = userDAO.findUserByEmail(email);
@@ -91,6 +92,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 	
 	
 	//XỬ lý cv/file
+	@Transactional
 	@Override
 	public void uploadUserCv(String email, String filePath) {
 		User user = userDAO.findUserByEmail(email);
@@ -98,17 +100,29 @@ public class FileUploadServiceImpl implements FileUploadService {
 			throw new RuntimeException("User not found");
 		}
 
-		// Tạo một đối tượng Cv mới và thiết lập các giá trị
-		Cv cv = new Cv();
-		cv.setUser(user); // Liên kết CV với người dùng
-		cv.setFileName(filePath.substring(filePath.lastIndexOf("/") + 1)); // Lưu tên file từ đường dẫn
+		// Kiểm tra xem user đã có CV hay chưa
+	    Cv existingCv = user.getCv(); // Sử dụng mối quan hệ giữa User và Cv
 
-		// Lưu đối tượng Cv vào cơ sở dữ liệu
-		cvDAO.save(cv);
+	    if (existingCv != null) {
+	        // Nếu đã có CV, chỉ cần cập nhật tên file mới
+	        existingCv.setFileName(filePath.substring(filePath.lastIndexOf("/") + 1));
+	        cvDAO.save(existingCv); // Lưu thay đổi vào database
+	    } else {
+	        // Nếu chưa có CV, tạo mới và liên kết với user
+	        Cv newCv = new Cv();
+	    
+	        
+	        newCv.setUser(user); // Liên kết CV với người dùng
+	        newCv.setFileName(filePath.substring(filePath.lastIndexOf("/") + 1)); // Lưu tên file từ đường dẫn
 
-		// Cập nhật User với đối tượng Cv mới
-		user.setCv(cv); // Thiết lập Cv trong User
-		userDAO.save(user); // Lưu User, Hibernate sẽ tự động cập nhật cv_id
+	        cvDAO.save(newCv); // Lưu đối tượng CV vào cơ sở dữ liệu
+	        
+	        // Cập nhật user với đối tượng CV mới
+	        user.setCv(newCv); // Thiết lập CV trong user
+	        userDAO.save(user); // Lưu user, Hibernate sẽ tự động cập nhật cv_id
+
+	        
+	    }
 	}
 	
 	

@@ -39,8 +39,9 @@ public class User {
     private Role role;
 
     @OneToOne
-    @JoinColumn(name = "cv_id")
+    @JoinColumn(name = "cv_id")// cv_id là khóa ngoại trỏ tới bảng Cv
     private Cv cv;
+    
     
     public ApplyPost getApplyPost() {
 		return applyPost;

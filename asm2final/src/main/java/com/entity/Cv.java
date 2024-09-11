@@ -13,7 +13,7 @@ public class Cv {
     @Column(name="file_name")
     private String fileName;
 
-    @OneToOne(mappedBy = "cv")
+    @OneToOne(mappedBy = "cv") // mappedBy trỏ đến trường cv trong User
     private User user;
     
     public Cv() {
